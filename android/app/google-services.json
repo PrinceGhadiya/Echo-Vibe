@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "444401446415",
+    "project_id": "echovibe-33bcd",
+    "storage_bucket": "echovibe-33bcd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:444401446415:android:c96c8d538740b5c4dd3d7a",
+        "android_client_info": {
+          "package_name": "prince.ghadiya.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1cY_0MsG9IkEDV7mlVFzxGS7hUVBwE58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
