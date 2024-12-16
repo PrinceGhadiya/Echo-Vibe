@@ -30,6 +30,16 @@ class FirestoreHelper {
   }
 
   // Update user bio
+  Future<void> updateUserName(String userName) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    await firestore.collection("Users").doc(user.uid).update({
+      "name": userName,
+    });
+  }
+
+  // Update user bio
   Future<void> updateUserBio(String bio) async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
@@ -84,6 +94,20 @@ class FirestoreHelper {
     });
   }
 
+  // Search posts by postId or postDescription
+  Stream<List<QueryDocumentSnapshot<Map<String, dynamic>>>> searchPosts(
+      String searchTerm) {
+    String lowerCaseSearchTerm = searchTerm.toLowerCase();
+
+    return firestore.collection("Posts").snapshots().map((snapshot) {
+      return snapshot.docs.where((doc) {
+        String postDesc =
+            (doc.data()['postTitle'] ?? "").toString().toLowerCase();
+        return postDesc.contains(lowerCaseSearchTerm);
+      }).toList();
+    });
+  }
+
   // Fetch all posts
   Stream<QuerySnapshot<Map<String, dynamic>>> fetchAllPosts() {
     return firestore
@@ -134,6 +158,14 @@ class FirestoreHelper {
     return FirebaseFirestore.instance
         .collection("Posts")
         .doc(postId)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> fetchPostsByUserId(
+      String userId) {
+    return FirebaseFirestore.instance
+        .collection("Posts")
+        .where("userId", isEqualTo: userId)
         .snapshots();
   }
 }

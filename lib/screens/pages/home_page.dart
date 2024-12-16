@@ -3,6 +3,7 @@ import 'package:echo_vibe/screens/components/comment_section.dart';
 import 'package:echo_vibe/screens/components/post_card.dart';
 import 'package:echo_vibe/screens/components/profile_screen.dart';
 import 'package:echo_vibe/screens/pages/add_post/add_post.dart';
+import 'package:echo_vibe/screens/pages/search/search_page.dart';
 import 'package:echo_vibe/utils/helper/auth_helper.dart';
 import 'package:echo_vibe/utils/helper/firestore_helper.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
         },
         children: [
           _postPage(),
-          Center(child: Text('Search Page')),
+          SearchPage(),
           ProfileScreen(),
         ],
       ),
@@ -73,19 +74,21 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(),
-        onPressed: () {
-          Navigator.push(
-            context,
-            PageAnimationTransition(
-              page: AddPost(),
-              pageAnimationType: RightToLeftTransition(),
-            ),
-          );
-        },
-        child: const Icon(CupertinoIcons.add),
-      ),
+      floatingActionButton: _currentIndex == 0
+          ? FloatingActionButton(
+              shape: const CircleBorder(),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageAnimationTransition(
+                    page: AddPost(),
+                    pageAnimationType: RightToLeftTransition(),
+                  ),
+                );
+              },
+              child: const Icon(CupertinoIcons.add),
+            )
+          : null,
     );
   }
 
